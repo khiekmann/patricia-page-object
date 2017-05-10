@@ -1,0 +1,1 @@
+linux 32 bit wid nicht mehr utnerstützt. das ist 15.x
