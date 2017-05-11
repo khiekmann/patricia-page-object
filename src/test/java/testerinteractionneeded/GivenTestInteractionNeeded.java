@@ -16,6 +16,7 @@ public class GivenTestInteractionNeeded
 {
 	private String resource = "setMeToYourLocalPath";
 	private static final String localGecko = "Set your local gecko sub path here.";
+	private static final String localString = "operatingsystem.Windows64";
 
 	@Disabled("Set variable resource")
 	@Test
@@ -27,6 +28,13 @@ public class GivenTestInteractionNeeded
 	@Test
 	void givenOperatingSystemsWhenLinuxExpectGeckoLinuxString() throws Exception
 	{
-		expect(OperatingSystem.local().gecko()).toBeEqualTo(localGecko).otherwiseComplain();
+		expect(OperatingSystem.local().subPathToGecko()).toBeEqualTo(localGecko).otherwiseComplain();
+	}
+
+	@Test
+	void whenGettingLocalOperatingSystemThenEqualToLocal() throws Exception
+	{
+		// arrange // act // assert
+		expect(localString).toBeEqualTo(OperatingSystem.local().toString()).otherwiseComplain();
 	}
 }

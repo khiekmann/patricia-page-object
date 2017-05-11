@@ -5,8 +5,13 @@ package operatingsystem;
  */
 public class Linux32 extends OperatingSystem
 {
-	public String gecko()
+	public Linux32()
 	{
-		return geckoPath("linux32");
+		Parameter parameter = new Parameter();
+		parameter.put(ParameterKey.linux, true);
+		parameter.put(ParameterKey.arch32, true);
+		parameter.put(ParameterKey.operatingSystems, OperatingSystemKey.linux32 );
+		parameter.put(ParameterKey.geckoPath, "linux32");
+		parameter(parameter);
 	}
 }

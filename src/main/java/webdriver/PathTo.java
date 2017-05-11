@@ -16,7 +16,7 @@ public class PathTo
 	private static String resources = "resources";
 	private static String selenium = "selenium";
 
-	private static File createPathFromProjectAnd(String... subfolders)
+	private static File createPathFromProjectTo(String... subfolders)
 	{
 		String appendMe = new String();
 		for (String folder : subfolders) {
@@ -45,16 +45,16 @@ public class PathTo
 
 	public static File resources()
 	{
-		return createPathFromProjectAnd(src, main, resources);
+		return createPathFromProjectTo(src, main, resources);
 	}
 
 	public static File selenium()
 	{
-		return createPathFromProjectAnd(src, main, resources, selenium);
+		return createPathFromProjectTo(src, main, resources, selenium);
 	}
 
-	public static File geckoOf(OperatingSystem operatingSystem) throws Exception
+	public static File geckoFor(OperatingSystem operatingSystem) throws Exception
 	{
-		return createPathFromProjectAnd(src, main, resources, selenium, OperatingSystem.geckoOf(operatingSystem));
+		return createPathFromProjectTo(src, main, resources, selenium, operatingSystem.subPathToGecko());
 	}
 }

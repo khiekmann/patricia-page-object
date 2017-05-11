@@ -5,8 +5,13 @@ package operatingsystem;
  */
 public class Linux64 extends OperatingSystem
 {
-	public String gecko()
+	public Linux64()
 	{
-		return geckoPath("linux64");
+		Parameter parameter = new Parameter();
+		parameter.put(ParameterKey.linux, true);
+		parameter.put(ParameterKey.arch64, true);
+		parameter.put(ParameterKey.geckoPath, "linux64");
+		parameter.put(ParameterKey.operatingSystems, OperatingSystemKey.linux64);
+		parameter(parameter);
 	}
 }

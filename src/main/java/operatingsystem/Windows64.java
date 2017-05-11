@@ -5,8 +5,14 @@ package operatingsystem;
  */
 public class Windows64 extends OperatingSystem
 {
-	public String gecko()
+	public Windows64()
 	{
-			return geckoPath("win64", ".exe");
+		Parameter parameter = new Parameter();
+		parameter.put(ParameterKey.windows, true);
+		parameter.put(ParameterKey.arch64, true);
+		parameter.put(ParameterKey.operatingSystems, OperatingSystemKey.windows64);
+		parameter.put(ParameterKey.geckoPath, "win64");
+		parameter.put(ParameterKey.geckoFileEnding, ".exe");
+		parameter(parameter);
 	}
 }

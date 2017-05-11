@@ -34,6 +34,6 @@ class GivenPathTo
 
 	@Test
 	void whenGettingPathToGeckoThenExpectExistant() throws Exception {
-		expect(PathTo.geckoOf(OperatingSystem.local()).exists()).toBeTrue().otherwiseComplain();
+		expect(PathTo.geckoFor(OperatingSystem.local()).exists()).toBeTrue().otherwiseComplain();
 	}
 }

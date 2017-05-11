@@ -4,6 +4,10 @@ package operatingsystem;
  * Taken from org.apache.commons.lang
  */
 
+import java.util.LinkedList;
+import java.util.List;
+
+
 /**
  * Created by HiekmaHe on 10.05.2017.
  */
@@ -11,110 +15,84 @@ public abstract class OperatingSystem
 {
 	public static final String n = System.getProperty("file.separator");
 
-	private static final String osname = "os.name";
-	private static final String osversion = "os.version";
-	private static final String osarch = "os.arch";
-
-	private final String name;
-	private final String version;
-	private final String arch;
+	private Parameter parameter;
+	List<ParameterKey> equalParameterKeys = new LinkedList();
+	private String geckoSubPathPrefix = "geckodriver-latest-";
+	private String geckoDriver = "geckodriver";
 
 	public static OperatingSystem local() throws Exception
 	{
-		OperatingSystem local;
-		if (isWindows() && is64()) { local = new Windows64(); }
-		else if (isLinux() && is32()) { local = new Linux32(); }
-		else if (isLinux() && is64()) { local = new Linux64(); }
-		else if (isMac()) { local = new Mac();}
-		else { throw new Exception(
-				"win: " + isWindows() +
-						" linux: " + isLinux() +
-						" mac: " + isMac() +
-						" 32: " + is32() +
-						" 64: " + is64());
-		}
-		return local;
+		return LocalOperatingSystem.create();
 	}
 
-	public static String name() {
-		return get(osname);
+	public OperatingSystem() {
+		equalParameterKeys.add(ParameterKey.arch32);
+		equalParameterKeys.add(ParameterKey.arch64);
+		equalParameterKeys.add(ParameterKey.linux);
+		equalParameterKeys.add(ParameterKey.macOs);
+		equalParameterKeys.add(ParameterKey.windows);
 	}
-
-	public static String version() {
-		return get(osversion);
-	}
-
-	public static String arch() {
-		return get(osarch);
-	}
-
-	private static String get(String property) throws SecurityException
-	{
-		return System.getProperty(property);
-	}
-
-	private static boolean isLinux()
-	{
-		return name().startsWith("Linux");
-	}
-
-	private static boolean isMac() { return name().startsWith("Mac");}
-
-	private static boolean isWindows()
-	{
-		return name().startsWith("Windows");
-	}
-
-	private static boolean is32()
-	{
-		return arch().contains("32");
-	}
-
-	private static boolean is64()
-	{
-		return arch().contains("64");
-	}
-
-	protected static String geckoPath(String osNameArch, String fileEnding)
-	{
-		return "geckodriver-latest-" + osNameArch + n + "geckodriver" + fileEnding;
-	}
-
-	protected static String geckoPath(String osNameArch)
-	{
-		return geckoPath(osNameArch, "");
-	}
-
-	public static String geckoOf(OperatingSystem operatingSystem)
-	{
-		return operatingSystem.gecko();
-	}
-
-	public OperatingSystem()
-	{
-		this.name = name();
-		this.version = version();
-		this.arch = arch();
-	}
-
-	public abstract String gecko();
 
 	@Override
 	public String toString() {
-		return name + " " + version + " " + arch;
+		return this.getClass().getName();
 	}
 
 	@Override
 	public int hashCode() {
-		return (name + version + arch).hashCode();
+		return toString().hashCode();
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		boolean isEqual = false;
-		if (object instanceof OperatingSystem) {
-			isEqual = (object.hashCode() == this.hashCode());
+	public boolean equals(Object other) {
+		boolean areEqual = false;
+		if (other instanceof OperatingSystem) {
+			OperatingSystem otherSystem = (OperatingSystem) other;
+			areEqual = areEquals(otherSystem.parameter());
 		}
+		return areEqual;
+	}
+
+	private boolean areEquals(Parameter otherParameter) {
+		boolean areEqual = true;
+		for (ParameterKey key : equalParameterKeys) {
+			if(thisHasDifferentValueFor(key, otherParameter)) {
+				areEqual = false;
+				break;
+			}
+		}
+		return areEqual;
+	}
+
+	private boolean thisHasDifferentValueFor(ParameterKey key, Parameter thanOther)
+	{
+		Object thisValue = parameter().valueOf(key);
+		thisValue = (thisValue == null) ? Boolean.FALSE : thisValue;
+		Object otherValue = thanOther.valueOf(key);
+		otherValue = (otherValue == null) ? Boolean.FALSE : otherValue;
+		boolean isEqual = ( ! thisValue.equals(otherValue));
 		return isEqual;
+	}
+
+	public String subPathToGecko()
+	{
+		String suffix = parameter().valueOf(ParameterKey.geckoPath).toString();
+		Object fileEnding = parameter().valueOf(ParameterKey.geckoFileEnding);
+		String fileEndingString = (fileEnding == null) ?  ""  : fileEnding.toString();
+		return geckoSubPathFrom(suffix, fileEndingString);
+	}
+
+	private String geckoSubPathFrom(String suffix, String fileEnding)
+	{
+		return geckoSubPathPrefix + suffix + n + geckoDriver + fileEnding;
+	}
+
+	public void parameter(Parameter parameter) {
+		this.parameter = parameter;
+	}
+
+	public Parameter parameter()
+	{
+		return parameter;
 	}
 }
