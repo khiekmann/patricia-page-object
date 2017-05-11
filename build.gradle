@@ -43,17 +43,21 @@ repositories {
 	maven { url 'https://jitpack.io' }
 }
 
+// jitpack.io get the freshest build
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
 	// The production code uses the SLF4J logging API at compile time
 	// compile 'org.slf4j:slf4j-api:1.7.21'
 	// download library for JUnit 5
+//	compile 'com.github.khiekmann:deborah-debugger:v0.1'
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 	compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M4'
 	compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M4'
 	compile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.0-M4'
-	// jitpack.io my debugging utility
-	compile 'com.github.khiekmann:deborah-debugger:master-SNAPSHOT'
 
 	// Declare the dependency for your favourite test framework you want to use in your tests.
 	// TestNG is also supported by the Gradle Test task. Just change the
@@ -63,6 +67,9 @@ dependencies {
 	// download library for JUnit 5
 	// compile project for testing using Junit Jupiter Api
 	testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
+	// jitpack.io my debugging utility
+	testCompile 'com.github.khiekmann:deborah-debugger:master-SNAPSHOT'
+
 }
 
 junitPlatform {
