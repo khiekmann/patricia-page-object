@@ -5,9 +5,8 @@ package operatingsystem;
  */
 public class Linux32 extends OperatingSystem
 {
-	@Override
 	public String gecko()
 	{
-		return "linux32" + System.getProperty("file.separator") + "geckodriver";
+		return geckoPath("linux32");
 	}
 }

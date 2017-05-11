@@ -5,10 +5,8 @@ package operatingsystem;
  */
 public class Windows64 extends OperatingSystem
 {
-
-	@Override
 	public String gecko()
 	{
-		return "win64" + System.getProperty("file.separator") + "geckodriver.exe";
+			return geckoPath("win64", ".exe");
 	}
 }

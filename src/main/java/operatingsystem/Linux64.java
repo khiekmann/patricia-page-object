@@ -5,9 +5,8 @@ package operatingsystem;
  */
 public class Linux64 extends OperatingSystem
 {
-	@Override
 	public String gecko()
 	{
-		return "linux64" + System.getProperty("file.separator") + "geckodriver";
+		return geckoPath("linux64");
 	}
 }

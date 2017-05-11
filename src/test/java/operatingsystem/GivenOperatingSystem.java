@@ -1,9 +1,7 @@
-package webdriver;
+package operatingsystem;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-
-import operatingsystem.OperatingSystem;
 
 import static debugger.Debugger.expect;
 

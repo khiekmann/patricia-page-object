@@ -9,9 +9,11 @@ package operatingsystem;
  */
 public abstract class OperatingSystem
 {
-	private static final String NAME = "os.name";
-	private static final String VERSION = "os.version";
-	private static final String ARCH = "os.arch";
+	public static final String n = System.getProperty("file.separator");
+
+	private static final String osname = "os.name";
+	private static final String osversion = "os.version";
+	private static final String osarch = "os.arch";
 
 	private final String name;
 	private final String version;
@@ -35,15 +37,15 @@ public abstract class OperatingSystem
 	}
 
 	public static String name() {
-		return get(NAME);
+		return get(osname);
 	}
 
 	public static String version() {
-		return get(VERSION);
+		return get(osversion);
 	}
 
 	public static String arch() {
-		return get(ARCH);
+		return get(osarch);
 	}
 
 	private static String get(String property) throws SecurityException
@@ -73,6 +75,21 @@ public abstract class OperatingSystem
 		return arch().contains("64");
 	}
 
+	protected static String geckoPath(String osNameArch, String fileEnding)
+	{
+		return "geckodriver-latest-" + osNameArch + n + "geckodriver" + fileEnding;
+	}
+
+	protected static String geckoPath(String osNameArch)
+	{
+		return geckoPath(osNameArch, "");
+	}
+
+	public static String geckoOf(OperatingSystem operatingSystem)
+	{
+		return operatingSystem.gecko();
+	}
+
 	public OperatingSystem()
 	{
 		this.name = name();
@@ -80,10 +97,24 @@ public abstract class OperatingSystem
 		this.arch = arch();
 	}
 
+	public abstract String gecko();
+
 	@Override
 	public String toString() {
 		return name + " " + version + " " + arch;
 	}
 
-	public abstract String gecko();
+	@Override
+	public int hashCode() {
+		return (name + version + arch).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		boolean isEqual = false;
+		if (object instanceof OperatingSystem) {
+			isEqual = (object.hashCode() == this.hashCode());
+		}
+		return isEqual;
+	}
 }

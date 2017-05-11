@@ -5,9 +5,8 @@ package operatingsystem;
  */
 public class Mac extends OperatingSystem
 {
-	@Override
 	public String gecko()
 	{
-		return "macos" + System.getProperty("file.separator") + "geckodriver";
+		return geckoPath("macos");
 	}
 }

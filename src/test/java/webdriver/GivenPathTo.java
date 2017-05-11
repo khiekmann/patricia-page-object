@@ -1,7 +1,8 @@
 package webdriver;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+
+import operatingsystem.OperatingSystem;
 
 import static debugger.Debugger.expect;
 
@@ -11,8 +12,6 @@ import static debugger.Debugger.expect;
  */
 class GivenPathTo
 {
-	private String resource = "setMeToYourLocalPath";
-
 	@Test
 	void whenGettingPathToResourcesThenNotNull() {
 		expect(PathTo.resources()).toNotBeNull().otherwiseComplain();
@@ -21,12 +20,6 @@ class GivenPathTo
 	@Test
 	void whenGettingPathToResourcesThenNotEmpty() {
 		expect(PathTo.resources()).toNotBeEmpty().otherwiseComplain();
-	}
-
-	@Ignore("Set variable resource")
-	@Test
-	void whenGettingPathToResourcesThenEqualPathToResources() {
-		//expect(PathTo.resources().toString()).toBeEqualTo(resource).otherwiseComplain();
 	}
 
 	@Test
@@ -41,7 +34,6 @@ class GivenPathTo
 
 	@Test
 	void whenGettingPathToGeckoThenExpectExistant() throws Exception {
-		expect(PathTo.gecko().exists()).toBeTrue().otherwiseComplain();
+		expect(PathTo.geckoOf(OperatingSystem.local()).exists()).toBeTrue().otherwiseComplain();
 	}
-
 }

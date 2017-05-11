@@ -53,8 +53,8 @@ public class PathTo
 		return createPathFromProjectAnd(src, main, resources, selenium);
 	}
 
-	public static File gecko() throws Exception
+	public static File geckoOf(OperatingSystem operatingSystem) throws Exception
 	{
-		return createPathFromProjectAnd(src, main, resources, selenium, OperatingSystem.local().gecko());
+		return createPathFromProjectAnd(src, main, resources, selenium, OperatingSystem.geckoOf(operatingSystem));
 	}
 }
