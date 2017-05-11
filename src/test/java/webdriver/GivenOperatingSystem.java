@@ -1,5 +1,6 @@
 package webdriver;
 
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import static debugger.Debugger.expect;
@@ -8,75 +9,80 @@ import static debugger.Debugger.expect;
 /**
  * Created by HiekmaHe on 10.05.2017.
  */
-public class GivenOperatingSystem
+class GivenOperatingSystem
 {
 	/* Enter your running system here */
-	private String arch = "amd64";
-	private String name = "Windows 10";
-	private String version = "10.0";
+	private static final String arch = "amd64";
+	private static final String name = "Windows 10";
+	private static final String version = "10.0";
+	private static final String localString = name + " " + version + " " + arch;
 
-	@Test
-	public void whenGettingArchThenNoException() {
-		// arrange
-		boolean failed = false;
+	private static boolean exceptionCaught;
 
-		// act
-		try {
-			OperatingSystem.arch();
-		} catch ( Exception e) {
-			failed = true;
-		}
-
-		// assert
-		expect(failed).toBeFalse().otherwiseComplain();
+	@Before
+	void before() {
+		exceptionCaught = false;
 	}
 
 	@Test
-	public void whenGettingArchThenArch() {
+	void whenGettingLocalOperatingSystemThenEqualToLocal() {
+		// arrange // act // assert
+		expect(localString).toBeEqualTo(OperatingSystem.local().toString()).otherwiseComplain();
+	}
+
+	@Test
+	void whenGettingArchThenNoException() {
+		// arrange // act
+		try {
+			OperatingSystem.arch();
+		} catch ( Exception e) {
+			exceptionCaught = true;
+		}
+
+		// assert
+		expect(exceptionCaught).toBeFalse().otherwiseComplain();
+	}
+
+	@Test
+	void whenGettingArchThenArch() {
 		// arrange // act // assert
 		expect(arch).toBeEqualTo(OperatingSystem.arch()).otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingNameThenNoException() {
-		// arrange
-		boolean failed = false;
-
-		// act
+	void whenGettingNameThenNoException() {
+		// arrange // act
 		try {
 			OperatingSystem.name();
 		} catch ( Exception e) {
-			failed = true;
+			exceptionCaught = true;
 		}
 
 		// assert
-		expect(failed).toBeFalse().otherwiseComplain();
+		expect(exceptionCaught).toBeFalse().otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingNameThenName() {
+	void whenGettingNameThenName() {
 		// arrange // act // assert
 		expect(name).toBeEqualTo(OperatingSystem.name()).otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingVersionThenNoException() {
-		// arrange
-		boolean failed = false;
-
-		// act
+	void whenGettingVersionThenNoException() {
+		// arrange // act
 		try {
 			OperatingSystem.version();
 		} catch ( Exception e) {
-			failed = true;
+			exceptionCaught = true;
 		}
 
 		// assert
-		expect(failed).toBeFalse().otherwiseComplain();
+		expect(exceptionCaught).toBeFalse().otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingVersionThenVersion() {
+	void whenGettingVersionThenVersion() {
 		// arrange // act // assert
 		expect(version).toBeEqualTo(OperatingSystem.version());
 	}
