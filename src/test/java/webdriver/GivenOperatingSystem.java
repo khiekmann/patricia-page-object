@@ -3,6 +3,8 @@ package webdriver;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import operatingsystem.OperatingSystem;
+
 import static debugger.Debugger.expect;
 
 
@@ -25,7 +27,15 @@ class GivenOperatingSystem
 	}
 
 	@Test
-	void whenGettingLocalOperatingSystemThenEqualToLocal() {
+	void whenGettingLocalOperatingSystemThenExpectNotNull() throws Exception
+	{
+		// arrange // act // assert
+		expect(OperatingSystem.local()).toBeNotNull().otherwiseComplain();
+	}
+
+	@Test
+	void whenGettingLocalOperatingSystemThenEqualToLocal() throws Exception
+	{
 		// arrange // act // assert
 		expect(localString).toBeEqualTo(OperatingSystem.local().toString()).otherwiseComplain();
 	}
