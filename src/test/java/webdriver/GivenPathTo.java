@@ -9,28 +9,39 @@ import static debugger.Debugger.expect;
 /**
  * Created by HiekmaHe on 10.05.2017.
  */
-public class GivenPathTo
+class GivenPathTo
 {
 	private String resource = "setMeToYourLocalPath";
 
 	@Test
-	public void whenGettingPathToResourcesThenNotNull() {
+	void whenGettingPathToResourcesThenNotNull() {
 		expect(PathTo.resources()).toNotBeNull().otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingPathToResourcesThenNotEmpty() {
+	void whenGettingPathToResourcesThenNotEmpty() {
 		expect(PathTo.resources()).toNotBeEmpty().otherwiseComplain();
 	}
 
 	@Ignore("Set variable resource")
 	@Test
-	public void whenGettingPathToResourcesThenEqualPathToResources() {
+	void whenGettingPathToResourcesThenEqualPathToResources() {
 		//expect(PathTo.resources().toString()).toBeEqualTo(resource).otherwiseComplain();
 	}
 
 	@Test
-	public void whenGettingPathToResourcesThenExpectExistant() {
+	void whenGettingPathToResourcesThenExpectExistant() {
 		expect(PathTo.resources().exists()).toBeTrue().otherwiseComplain();
 	}
+	
+	@Test
+	void whenGettingPathToSeleniumThenExpectExistant() {
+		expect(PathTo.selenium().exists()).toBeTrue().otherwiseComplain();
+	}
+
+	@Test
+	void whenGettingPathToGeckoThenExpectExistant() throws Exception {
+		expect(PathTo.gecko().exists()).toBeTrue().otherwiseComplain();
+	}
+
 }
