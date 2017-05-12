@@ -5,10 +5,15 @@ package operatingsystem;
  */
 public class YetUndefined extends OperatingSystem
 {
+	private static final String osname = "os.name";
+	private static final String osarch = "os.arch";
+
 	private final Parameter parameter;
 
-	public YetUndefined(String name, String arch)
+	public YetUndefined()
 	{
+		String name = name();
+		String arch = arch();
 		parameter = new Parameter();
 		put(ParameterKey.linux, name);
 		put(ParameterKey.macOs, name);
@@ -23,5 +28,18 @@ public class YetUndefined extends OperatingSystem
 		Object value = data.contains(parameters.value());
 		value = (value.equals(Boolean.FALSE)) ? null : value;
 		parameter.put(parameters, value);
+	}
+
+	private static String name() {
+		return get(osname);
+	}
+
+	private static String arch() {
+		return get(osarch);
+	}
+
+	private static String get(String property) throws SecurityException
+	{
+		return System.getProperty(property);
 	}
 }

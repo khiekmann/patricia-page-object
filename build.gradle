@@ -76,7 +76,7 @@ junitPlatform {
 	platformVersion "1.0.0-M4"
 	filters {
 		engines {
-			include 'junit-jupiter'
+			// include 'junit-jupiter'
 			// exclude 'junit-vintage'
 		}
 		tags {
@@ -89,5 +89,6 @@ junitPlatform {
 		}
 		//includeClassNamePattern '.*Spec'
 		includeClassNamePatterns '.*Test', '.*Tests'
+		includeClassNamePatterns 'Given.*'
 	}
 }

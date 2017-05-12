@@ -8,7 +8,7 @@ import static debugger.Debugger.expect;
 /**
  * Created by HiekmaHe on 11.05.2017.
  */
-public class GivenLinux64
+class GivenLinux64
 {
 	private OperatingSystem system = new Linux64();
 

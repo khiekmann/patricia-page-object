@@ -13,16 +13,24 @@ import java.util.List;
  */
 public abstract class OperatingSystem
 {
-	public static final String n = System.getProperty("file.separator");
+	private static final String n = System.getProperty("file.separator");
+	private static final String geckoSubPathPrefix = "geckodriver-latest-";
+	private static final String geckoDriver = "geckodriver";
 
 	private Parameter parameter;
-	List<ParameterKey> equalParameterKeys = new LinkedList();
-	private String geckoSubPathPrefix = "geckodriver-latest-";
-	private String geckoDriver = "geckodriver";
+	private List<ParameterKey> equalParameterKeys = new LinkedList<>();
 
-	public static OperatingSystem local() throws Exception
+	public static OperatingSystem local()
 	{
-		return LocalOperatingSystem.create();
+		OperatingSystem local = new YetUndefined();
+		for (OperatingSystemKey operatingSystemKey : OperatingSystemKey.values()) {
+			OperatingSystem operatingSystem = operatingSystemKey.get();
+			if (local.equals(operatingSystem)) {
+				local = operatingSystemKey.get();
+				break;
+			}
+		}
+		return local;
 	}
 
 	public OperatingSystem() {
