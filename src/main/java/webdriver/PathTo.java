@@ -53,7 +53,7 @@ public class PathTo
 		return createPathFromProjectTo(src, main, resources, selenium);
 	}
 
-	public static File geckoFor(OS operatingSystem) throws Exception
+	public static File geckoFor(OS operatingSystem)
 	{
 		return createPathFromProjectTo(src, main, resources, selenium, operatingSystem.subPathToGecko());
 	}
