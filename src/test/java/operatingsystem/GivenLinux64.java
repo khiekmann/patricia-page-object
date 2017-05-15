@@ -2,7 +2,7 @@ package operatingsystem;
 
 import org.junit.jupiter.api.Test;
 
-import static debugger.Debugger.expect;
+import static de.fnordbedarf.debugger.Debugger.expect;
 
 
 /**
@@ -10,7 +10,7 @@ import static debugger.Debugger.expect;
  */
 class GivenLinux64
 {
-	private OperatingSystem system = new Linux64();
+	private OS system = new Linux64();
 
 	@Test
 	void whenCreatingThenNotNull() {

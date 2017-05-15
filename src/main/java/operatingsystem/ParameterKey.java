@@ -25,4 +25,11 @@ public enum ParameterKey
 	{
 		return value;
 	}
+
+	public boolean hasDifferentValueIn(Parameter thisOne, Parameter andThatOne)
+	{
+		Object thisValue = thisOne.falseOrValueOf(this);
+		Object otherValue = andThatOne.falseOrValueOf(this);
+		return ! thisValue.equals(otherValue);
+	}
 }

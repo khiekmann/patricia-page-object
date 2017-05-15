@@ -2,15 +2,15 @@ package operatingsystem;
 
 import org.junit.jupiter.api.Test;
 
-import static debugger.Debugger.expect;
+import static de.fnordbedarf.debugger.Debugger.expect;
 
 
 /**
  * Created by HiekmaHe on 11.05.2017.
  */
-class GivenOperatingSystems
+class GivenOS
 {
-	private OperatingSystemKey localOperatingSystem = OperatingSystemKey.windows64;
+	private OSKey localOperatingSystem = OSKey.windows64;
 
 	private String n = System.getProperty("file.separator");
 	private String win64Gecko = "geckodriver-latest-win64" + n + "geckodriver.exe";
@@ -21,7 +21,7 @@ class GivenOperatingSystems
 	@Test
 	void whenOperatingSystemLocalExpectExpectedLocalOperatingSystem() throws Exception
 	{
-		expect(OperatingSystem.local()).toBeEqualTo(localOperatingSystem.get()).otherwiseComplain();
+		expect(OS.local()).toBeEqualTo(localOperatingSystem.get()).otherwiseComplain();
 	}
 
 	@Test

@@ -2,7 +2,7 @@ package webdriver;
 
 import java.io.File;
 
-import operatingsystem.OperatingSystem;
+import operatingsystem.OS;
 
 
 /**
@@ -53,7 +53,7 @@ public class PathTo
 		return createPathFromProjectTo(src, main, resources, selenium);
 	}
 
-	public static File geckoFor(OperatingSystem operatingSystem) throws Exception
+	public static File geckoFor(OS operatingSystem) throws Exception
 	{
 		return createPathFromProjectTo(src, main, resources, selenium, operatingSystem.subPathToGecko());
 	}

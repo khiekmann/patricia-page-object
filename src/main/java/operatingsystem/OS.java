@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by HiekmaHe on 10.05.2017.
  */
-public abstract class OperatingSystem
+public abstract class OS
 {
 	private static final String n = System.getProperty("file.separator");
 	private static final String geckoSubPathPrefix = "geckodriver-latest-";
@@ -20,11 +20,11 @@ public abstract class OperatingSystem
 	private Parameter parameter;
 	private List<ParameterKey> equalParameterKeys = new LinkedList<>();
 
-	public static OperatingSystem local()
+	public static OS local()
 	{
-		OperatingSystem local = new YetUndefined();
-		for (OperatingSystemKey operatingSystemKey : OperatingSystemKey.values()) {
-			OperatingSystem operatingSystem = operatingSystemKey.get();
+		OS local = new YetUndefined();
+		for (OSKey operatingSystemKey : OSKey.values()) {
+			OS operatingSystem = operatingSystemKey.get();
 			if (local.equals(operatingSystem)) {
 				local = operatingSystemKey.get();
 				break;
@@ -33,7 +33,7 @@ public abstract class OperatingSystem
 		return local;
 	}
 
-	public OperatingSystem() {
+	public OS() {
 		equalParameterKeys.add(ParameterKey.arch32);
 		equalParameterKeys.add(ParameterKey.arch64);
 		equalParameterKeys.add(ParameterKey.linux);
@@ -54,40 +54,29 @@ public abstract class OperatingSystem
 	@Override
 	public boolean equals(Object other) {
 		boolean areEqual = false;
-		if (other instanceof OperatingSystem) {
-			OperatingSystem otherSystem = (OperatingSystem) other;
-			areEqual = areEquals(otherSystem.parameter());
+		if (other instanceof OS) {
+			OS otherSystem = (OS) other;
+			areEqual = parameter().equals(otherSystem.parameter(), equalParameterKeys);
 		}
 		return areEqual;
-	}
-
-	private boolean areEquals(Parameter otherParameter) {
-		boolean areEqual = true;
-		for (ParameterKey key : equalParameterKeys) {
-			if(thisHasDifferentValueFor(key, otherParameter)) {
-				areEqual = false;
-				break;
-			}
-		}
-		return areEqual;
-	}
-
-	private boolean thisHasDifferentValueFor(ParameterKey key, Parameter thanOther)
-	{
-		Object thisValue = parameter().valueOf(key);
-		thisValue = (thisValue == null) ? Boolean.FALSE : thisValue;
-		Object otherValue = thanOther.valueOf(key);
-		otherValue = (otherValue == null) ? Boolean.FALSE : otherValue;
-		boolean isEqual = ( ! thisValue.equals(otherValue));
-		return isEqual;
 	}
 
 	public String subPathToGecko()
 	{
-		String suffix = parameter().valueOf(ParameterKey.geckoPath).toString();
+		String suffix = getGeckoPathSuffix();
+		String fileEnding = getGeckoPathFileEnding();
+		return geckoSubPathFrom(suffix, fileEnding);
+	}
+
+	private String getGeckoPathSuffix()
+	{
+		return parameter().valueOf(ParameterKey.geckoPath).toString();
+	}
+
+	private String getGeckoPathFileEnding()
+	{
 		Object fileEnding = parameter().valueOf(ParameterKey.geckoFileEnding);
-		String fileEndingString = (fileEnding == null) ?  ""  : fileEnding.toString();
-		return geckoSubPathFrom(suffix, fileEndingString);
+		return (fileEnding == null) ?  ""  : fileEnding.toString();
 	}
 
 	private String geckoSubPathFrom(String suffix, String fileEnding)

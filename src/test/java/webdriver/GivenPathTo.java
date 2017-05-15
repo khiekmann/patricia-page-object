@@ -2,9 +2,9 @@ package webdriver;
 
 import org.junit.jupiter.api.Test;
 
-import operatingsystem.OperatingSystem;
+import operatingsystem.OS;
 
-import static debugger.Debugger.expect;
+import static de.fnordbedarf.debugger.Debugger.expect;
 
 
 /**
@@ -34,6 +34,6 @@ class GivenPathTo
 
 	@Test
 	void whenGettingPathToGeckoThenExpectExistant() throws Exception {
-		expect(PathTo.geckoFor(OperatingSystem.local()).exists()).toBeTrue().otherwiseComplain();
+		expect(PathTo.geckoFor(OS.local()).exists()).toBeTrue().otherwiseComplain();
 	}
 }

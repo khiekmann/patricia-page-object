@@ -2,13 +2,13 @@ package operatingsystem;
 
 import org.junit.jupiter.api.Test;
 
-import static debugger.Debugger.expect;
+import static de.fnordbedarf.debugger.Debugger.expect;
 
 
 /**
  * Created by HiekmaHe on 10.05.2017.
  */
-class GivenOperatingSystem
+class GivenOSKey
 {
 	@Test
 	void whenSameThenEqual() {
@@ -30,14 +30,14 @@ class GivenOperatingSystem
 	void whenGettingLocalOperatingSystemThenExpectNotNull()
 	{
 		// arrange // act // assert
-		expect(OperatingSystem.local()).toBeNotNull().otherwiseComplain();
+		expect(OS.local()).toBeNotNull().otherwiseComplain();
 	}
 
 	@Test
 	void whenOtherOperatingSystemEqualThenSameHashCode()
 	{
-		expect(OperatingSystem.local()).toBeEqualTo(OperatingSystem.local()).otherwiseComplain();
-		expect(OperatingSystem.local().hashCode()).toBeEqualTo(OperatingSystem.local().hashCode()).otherwiseComplain();
+		expect(OS.local()).toBeEqualTo(OS.local()).otherwiseComplain();
+		expect(OS.local().hashCode()).toBeEqualTo(OS.local().hashCode()).otherwiseComplain();
 	}
 
 	@Test

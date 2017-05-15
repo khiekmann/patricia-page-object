@@ -1,6 +1,7 @@
 package operatingsystem;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,5 +23,23 @@ public class Parameter
 	public Object valueOf(ParameterKey key)
 	{
 		return parameters.get(key);
+	}
+
+	public Object falseOrValueOf(ParameterKey key)
+	{
+		Object value = this.valueOf(key);
+		return (value == null) ? Boolean.FALSE : value;
+	}
+
+	public boolean equals(Parameter other, List<ParameterKey> keys)
+	{
+		boolean areEqual = true;
+		for (ParameterKey key : keys) {
+			if(key.hasDifferentValueIn(this, other)) {
+				areEqual = false;
+				break;
+			}
+		}
+		return areEqual;
 	}
 }

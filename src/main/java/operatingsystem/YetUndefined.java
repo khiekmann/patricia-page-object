@@ -3,7 +3,7 @@ package operatingsystem;
 /**
  * Created by HiekmaHe on 11.05.2017.
  */
-public class YetUndefined extends OperatingSystem
+public class YetUndefined extends OS
 {
 	private static final String osname = "os.name";
 	private static final String osarch = "os.arch";
